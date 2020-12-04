@@ -1,5 +1,3 @@
-
-
 def digits_increasing(s):
     last = int(s[0])
     for i in s:
@@ -8,6 +6,7 @@ def digits_increasing(s):
             return False
         last = d
     return True
+
 
 def has_pair(s):
     for i in range(0, len(s)):
@@ -20,7 +19,7 @@ def has_pair(s):
 
 
 def part1(data):
-    lowest, highest = [int(i) for i in data.split('-')]
+    lowest, highest = [int(i) for i in data.split("-")]
     total = 0
     for n in range(lowest, highest):
         s = str(n)
@@ -45,8 +44,9 @@ def has_small_group(s):
         return True
     return False
 
+
 def part2(data):
-    lowest, highest = [int(i) for i in data.split('-')]
+    lowest, highest = [int(i) for i in data.split("-")]
     total = 0
     for n in range(lowest, highest):
         s = str(n)

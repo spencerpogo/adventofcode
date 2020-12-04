@@ -1,7 +1,6 @@
-
 def intcode(icode):
     pos = 0
-    #print(icode)
+    # print(icode)
     while pos < len(icode):
         opcode = icode[pos]
         if opcode == 1:
@@ -22,7 +21,7 @@ def intcode(icode):
             break
         else:
             raise ValueError(f"Invalid opcode {opcode}")
-    #print(icode)
+    # print(icode)
     return icode
 
 
@@ -33,6 +32,7 @@ def part1(data):
 
     icode = intcode(icode)
     return icode[0]
+
 
 def part2(data):
     data = [int(i) for i in data.split(",") if i]
@@ -45,5 +45,3 @@ def part2(data):
             if out == 19690720:
                 return 100 * noun + verb
     raise ValueError("not found")
-    
-    

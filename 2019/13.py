@@ -1,4 +1,5 @@
-runintcode = __import__('09').intcodev4
+runintcode = __import__("09").intcodev4
+
 
 def get_outputs(iterator, amnt):
     while True:
@@ -13,8 +14,10 @@ def get_outputs(iterator, amnt):
 
 def part1(data):
     icode = [int(i) for i in data.split(",") if i]
+
     def inpf():
         raise ValueError("shouldn't input")
+
     screen = {}
     for x, y, tile in get_outputs(runintcode(icode, inpf), 3):
         screen[(x, y)] = tile
@@ -29,6 +32,7 @@ def part2(data):
     scores = []
     ballpos = None
     paddlepos = None
+
     def inpf():
         if ballpos is None or paddlepos is None:
             return 0
@@ -40,6 +44,7 @@ def part2(data):
             return -1
         else:
             raise ValueError("lol")
+
     for x, y, tile in get_outputs(runintcode(icode, inpf), 3):
         if x == -1 and y == 0:
             score = tile
@@ -49,7 +54,9 @@ def part2(data):
                 ballpos = (x, y)
             elif tile == 3:
                 paddlepos = (x, y)
-        if score and len([i for i in screen.values() if i == 2]) == 0: # number of blocks
+        if (
+            score and len([i for i in screen.values() if i == 2]) == 0
+        ):  # number of blocks
             scores.append(score)
     return scores[-1]
-    #return len([i for i in screen.values() if i == 2])
+    # return len([i for i in screen.values() if i == 2])

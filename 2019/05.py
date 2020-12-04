@@ -6,7 +6,7 @@ class Params:
         self.icode = icode
         self.modes = modes
         self.pos = pos
-    
+
     def getmode(self, i):
         try:
             mode = self.modes[i]
@@ -17,12 +17,12 @@ class Params:
     def __getitem__(self, i):
         mode = self.getmode(i)
         val = self.icode[self.pos + i + 1]
-        #print('m', mode)
+        # print('m', mode)
         if mode == 0:
-            #print(i, val, mode)
+            # print(i, val, mode)
             return self.icode[val]
         elif mode == 1:
-            #print(i, val, mode, val)
+            # print(i, val, mode, val)
             return val
         else:
             raise ValueError(f"Invalid mode {mode}")
@@ -33,52 +33,54 @@ class Params:
 
 
 icode = None
+
+
 def intcodev2(icode, inp):
     pos = 0
     while pos < len(icode):
         mode = str(icode[pos])
         opcode = int(mode[-2:])
-        #print(pos, ': ', mode, sep='')
+        # print(pos, ': ', mode, sep='')
         pmodes = []
         for p in reversed(mode[:-2]):
             pmodes.append(int(p))
         params = Params(icode, pmodes, pos)
-        if opcode == 1: # add
+        if opcode == 1:  # add
             term1 = params[0]
             term2 = params[1]
             outloc = icode[pos + 3]
             icode[outloc] = term1 + term2
             pos += 4
-        elif opcode == 2: #multiply
+        elif opcode == 2:  # multiply
             term1 = params[0]
             term2 = params[1]
             outloc = icode[pos + 3]
             icode[outloc] = term1 * term2
             pos += 4
-        elif opcode == 3: # inp to memory
+        elif opcode == 3:  # inp to memory
             outloc = icode[pos + 1]
             icode[outloc] = inp
             pos += 2
-        elif opcode == 4: # memory to inp
+        elif opcode == 4:  # memory to inp
             val = params[0]
             inp = val
             pos += 2
-        elif opcode == 5: # jump if true
+        elif opcode == 5:  # jump if true
             val = params[0]
             loc = params[1]
             if val != 0:
-                #print(f'jump to {loc}')
+                # print(f'jump to {loc}')
                 pos = loc
             else:
                 pos += 3
-        elif opcode == 6: # jump if false
+        elif opcode == 6:  # jump if false
             val = params[0]
             loc = params[1]
             if val == 0:
                 pos = loc
             else:
                 pos += 3
-        elif opcode == 7: # less than
+        elif opcode == 7:  # less than
             term1 = params[0]
             term2 = params[1]
             outloc = icode[pos + 3]
@@ -87,36 +89,35 @@ def intcodev2(icode, inp):
             else:
                 icode[outloc] = 0
             pos += 4
-        elif opcode == 8: # equal to
+        elif opcode == 8:  # equal to
             term1 = params[0]
             term2 = params[1]
             outloc = icode[pos + 3]
-            #print(f"{term1} == {term2} => {outloc}")
+            # print(f"{term1} == {term2} => {outloc}")
             if term1 == term2:
                 icode[outloc] = 1
             else:
                 icode[outloc] = 0
             pos += 4
         elif opcode == 99:
-            #print('end program')
+            # print('end program')
             break
         else:
             raise ValueError(f"Invalid opcode {opcode}")
-    #print(icode)
+    # print(icode)
     return icode, inp
 
 
 def part1(data):
-    inp = [int(i) for i in data.split(',') if i]
+    inp = [int(i) for i in data.split(",") if i]
     print(len(inp))
     _, out = intcodev2(inp, 8)
     return out
 
 
-
 def part2(data):
     global icode
-    inp = [int(i) for i in data.split(',') if i]
-    #print(len(inp))]
+    inp = [int(i) for i in data.split(",") if i]
+    # print(len(inp))]
     _, out = intcodev2(inp, 5)
     return out

@@ -1,5 +1,3 @@
-
-
 def iter_layer(l):
     count = 0
     for r in l:
@@ -12,7 +10,7 @@ def amt_in_layer(l, target):
     t = str(target)
     count = 0
     for pixel in iter_layer(l):
-        #if t in str(pixel):
+        # if t in str(pixel):
         if str(pixel) == t:
             count += 1
     return count
@@ -47,7 +45,9 @@ def collapse2(img, width=25, height=6):
     layers = []
     for l in img:
         layers.append(list(iter_layer(l)))
-    return make_layers([next(filter(lambda v: v != 2, lay)) for lay in zip(*layers)], w=width, h=height)
+    return make_layers(
+        [next(filter(lambda v: v != 2, lay)) for lay in zip(*layers)], w=width, h=height
+    )
 
 
 def part2(data):
@@ -59,7 +59,7 @@ def part2(data):
     for row in final:
         for pix in row:
             if pix == 1:
-                print('#', end=' ')
+                print("#", end=" ")
             else:
-                print(' ', end=' ')
+                print(" ", end=" ")
         print()

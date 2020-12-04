@@ -5,6 +5,7 @@ import time
 import math
 from typing import Any
 
+
 def format_filename(day):
     # You can customize this to your liking.
     return str(day).zfill(2)
@@ -24,15 +25,15 @@ def format_runtime(ms):
     sec = ms / 1000
     # Seconds
     if sec < 60:
-      whole_sec = math.floor(sec)
-      rem_ms = ms - whole_sec * 1000
-      return f'{whole_sec}s ' + format_runtime(rem_ms)
+        whole_sec = math.floor(sec)
+        rem_ms = ms - whole_sec * 1000
+        return f"{whole_sec}s " + format_runtime(rem_ms)
     # Minutes (hopefully it doesn't get to this point lol)
-    return f"{math.floor(sec / 60)}m " + format_runtime((sec % 60)* 1000)
+    return f"{math.floor(sec / 60)}m " + format_runtime((sec % 60) * 1000)
 
 
 def run_part(part: str, mod: Any, data: str):
-    funcname = f'part{part}'
+    funcname = f"part{part}"
 
     f = getattr(mod, funcname, None)
     if callable(f):
@@ -43,7 +44,7 @@ def run_part(part: str, mod: Any, data: str):
         end = time.perf_counter()
 
         print(f"Output: {val}")
-        rtime = (end - start) * 1000 # sec -> ms
+        rtime = (end - start) * 1000  # sec -> ms
         print(f"Took {format_runtime(rtime)}\n")
         return rtime
     else:
@@ -80,7 +81,7 @@ def run(day, year=2020):
 
 def get_day(max_day=None):
     while True:
-        prompt = f"Enter day" + f" (max {max_day})" if max_day else ''
+        prompt = f"Enter day" + f" (max {max_day})" if max_day else ""
         inp = input(prompt + ": ")
         try:
             day = int(inp)

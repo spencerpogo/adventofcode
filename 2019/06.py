@@ -6,13 +6,13 @@ class Obj:
         self.name = name
         self.sub = sub
         self.parent = None
-    
+
     def sub_orbits(self):
         if self.sub:
             return [self.sub] + self.sub.sub_orbits()
         else:
             return []
-    
+
     def __repr__(self):
         return f"<Orbit {self.name}>"
 
@@ -20,7 +20,7 @@ class Obj:
 def init_orbits(items):
     orbits = {}
     for it in items:
-        obj, sat = it.split(')')
+        obj, sat = it.split(")")
         if obj in orbits:
             obj_o = orbits[obj]
         else:
@@ -39,7 +39,7 @@ def init_orbits(items):
 def find_connection(o1, o2, count=0):
     if o1.sub in o2.sub_orbits():
         return o1.sub, count
-    return find_connection(o1.sub, o2, count+1)
+    return find_connection(o1.sub, o2, count + 1)
 
 
 def shortest_path(o1, o2):
@@ -51,18 +51,17 @@ def shortest_path(o1, o2):
 
 
 def part1(data):
-    items = [i for i in data.split('\n') if i]
+    items = [i for i in data.split("\n") if i]
     orbits = init_orbits(items)
     total = 0
     for n in orbits:
         total += len(orbits[n].sub_orbits())
-    #print(orbits)
+    # print(orbits)
     return total
 
 
 def part2(data):
     global orbits
-    items = [i for i in data.split('\n') if i]
+    items = [i for i in data.split("\n") if i]
     orbits = init_orbits(items)
     return shortest_path(orbits["YOU"], orbits["SAN"])
-    

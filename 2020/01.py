@@ -1,5 +1,3 @@
-
-
 def process_input(data):
     return [int(i) for i in data.split("\n") if i.strip()]
 
