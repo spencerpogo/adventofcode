@@ -29,7 +29,7 @@ parseInput :: String -> Course
 parseInput s = map parseLine (wordsWhen (== '\n') s)
 
 countTrees' :: Course -> Int -> Int -> Int -> Int -> Int -> Int -> Int
-countTrees' m right down x y trees width = if y < (length m)
+countTrees' m right down x y trees width = if y < length m
   then
     let newTress =
           if ((m !! y) !! (x `mod` width)) == Tree then trees + 1 else trees
@@ -37,7 +37,7 @@ countTrees' m right down x y trees width = if y < (length m)
   else trees
 
 countTrees :: Course -> Int -> Int -> Int
-countTrees m right down = countTrees' m right down 0 0 0 $ length $ m !! 0
+countTrees m right down = countTrees' m right down 0 0 0 $ length $ head m
 
 part1 :: Course -> String
 part1 m = show $ countTrees m 3 1
@@ -45,8 +45,8 @@ part1 m = show $ countTrees m 3 1
 part2 :: Course -> String
 part2 m =
   show
-    $ (countTrees m 1 1)
-    * (countTrees m 3 1)
-    * (countTrees m 5 1)
-    * (countTrees m 7 1)
-    * (countTrees m 1 2)
+    $ countTrees m 1 1
+    * countTrees m 3 1
+    * countTrees m 5 1
+    * countTrees m 7 1
+    * countTrees m 1 2
