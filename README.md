@@ -4,4 +4,10 @@ Solutions for adventofcode.com.
 
 ## Running
 
-Check out `haskell.sh` or `python.sh`. You may need to edit the script based on the location of your input data.
+Python:
+
+- `python.sh <year> <day>`. Expects input in `$zfilled_day.txt` in script's cwd, e.g. `01.txt`
+
+`haskell.sh`
+
+- Read the script, docs todo
