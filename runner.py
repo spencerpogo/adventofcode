@@ -4,6 +4,7 @@ Author: Scoder12"""
 import time
 import math
 from typing import Any
+from pathlib import Path
 
 
 def format_filename(day):
@@ -54,9 +55,7 @@ def run_part(part: str, mod: Any, data: str):
     return rtime
 
 
-def get_data(day):
-    # Try to find the filename
-    fname = format_filename(day) + ".txt"
+def get_data(fname):
     try:
         with open(fname, "r") as f:
             data = f.read()
@@ -70,8 +69,11 @@ def get_data(day):
 def run(day, year=2020):
     print(f"AOC {year} Day {day}")
 
-    mod = __import__(format_filename(day))
-    data = get_data(day)
+    fname = format_filename(day)
+    mod = __import__(fname)
+
+    script = Path(mod.__file__)
+    data = get_data(script.parent / (fname + ".txt"))
 
     part1Time = run_part(1, mod, data)
     part2Time = run_part(2, mod, data)
