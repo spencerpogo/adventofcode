@@ -5,3 +5,6 @@ inputs/
 odir/
 
 **/__pycache__/
+
+# Input files
+2022/*.txt
